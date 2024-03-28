@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"ch32v003fun.h": "c"
+		},
+		"C_Cpp.loggingLevel": "Information",
+		"mcu-debug.debug-tracker-vscode.debugLevel": 0,
+		"makefile.launchConfigurations": [
+			{
+				"cwd": "/home/bdroy/Embedded/ch32v-base/Projects/Primes",
+				"binaryPath": "/home/bdroy/Embedded/ch32v-base/Projects/Primes/primes.elf",
+				"binaryArgs": []
+			}
+		],
+		"terminal.integrated.gpuAcceleration": "on",
+		"terminal.integrated.enableImages": true
+	}
+}

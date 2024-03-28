@@ -1,0 +1,288 @@
+
+primes.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+00000000 <InterruptVector>:
+   0:	0b60006f          	j	b6 <handle_reset>
+   4:	00000000          	.word	0x00000000
+   8:	0000012e          	.word	0x0000012e
+   c:	0000012c          	.word	0x0000012c
+	...
+  30:	0000012c          	.word	0x0000012c
+  34:	00000000          	.word	0x00000000
+  38:	0000012c          	.word	0x0000012c
+  3c:	00000000          	.word	0x00000000
+  40:	0000012c          	.word	0x0000012c
+  44:	0000012c          	.word	0x0000012c
+  48:	0000012c          	.word	0x0000012c
+  4c:	0000012c          	.word	0x0000012c
+  50:	0000012c          	.word	0x0000012c
+  54:	0000012c          	.word	0x0000012c
+  58:	0000012c          	.word	0x0000012c
+  5c:	0000012c          	.word	0x0000012c
+  60:	0000012c          	.word	0x0000012c
+  64:	0000012c          	.word	0x0000012c
+  68:	0000012c          	.word	0x0000012c
+  6c:	0000012c          	.word	0x0000012c
+  70:	0000012c          	.word	0x0000012c
+  74:	0000012c          	.word	0x0000012c
+  78:	0000012c          	.word	0x0000012c
+  7c:	0000012c          	.word	0x0000012c
+  80:	0000012c          	.word	0x0000012c
+  84:	0000012c          	.word	0x0000012c
+  88:	0000012c          	.word	0x0000012c
+  8c:	0000012c          	.word	0x0000012c
+  90:	0000012c          	.word	0x0000012c
+  94:	0000012c          	.word	0x0000012c
+  98:	0000012c          	.word	0x0000012c
+  9c:	0000                	.insn	2, 0x
+	...
+
+Disassembly of section .text:
+
+000000a0 <__mulsi3>:
+  a0:	862a                	mv	a2,a0
+  a2:	4501                	li	a0,0
+  a4:	0015f693          	andi	a3,a1,1
+  a8:	c291                	beqz	a3,ac <__mulsi3+0xc>
+  aa:	9532                	add	a0,a0,a2
+  ac:	8185                	srli	a1,a1,0x1
+  ae:	0606                	slli	a2,a2,0x1
+  b0:	f9f5                	bnez	a1,a4 <__mulsi3+0x4>
+  b2:	8082                	ret
+	...
+
+000000b6 <handle_reset>:
+  b6:	20000197          	auipc	gp,0x20000
+  ba:	74a18193          	addi	gp,gp,1866 # 20000800 <__global_pointer$>
+  be:	00018113          	mv	sp,gp
+  c2:	08000513          	li	a0,128
+  c6:	30051073          	csrw	mstatus,a0
+  ca:	468d                	li	a3,3
+  cc:	00000517          	auipc	a0,0x0
+  d0:	f3450513          	addi	a0,a0,-204 # 0 <InterruptVector>
+  d4:	8d55                	or	a0,a0,a3
+  d6:	30551073          	csrw	mtvec,a0
+  da:	20000517          	auipc	a0,0x20000
+  de:	f2650513          	addi	a0,a0,-218 # 20000000 <NumPrimes>
+  e2:	bec18593          	addi	a1,gp,-1044 # 200003ec <_ebss>
+  e6:	4601                	li	a2,0
+  e8:	00b55663          	bge	a0,a1,f4 <handle_reset+0x3e>
+  ec:	c110                	sw	a2,0(a0)
+  ee:	0511                	addi	a0,a0,4
+  f0:	feb54ee3          	blt	a0,a1,ec <handle_reset+0x36>
+  f4:	2a800513          	li	a0,680
+  f8:	20000597          	auipc	a1,0x20000
+  fc:	f0858593          	addi	a1,a1,-248 # 20000000 <NumPrimes>
+ 100:	20000617          	auipc	a2,0x20000
+ 104:	f0060613          	addi	a2,a2,-256 # 20000000 <NumPrimes>
+ 108:	00c58863          	beq	a1,a2,118 <handle_reset+0x62>
+ 10c:	4114                	lw	a3,0(a0)
+ 10e:	c194                	sw	a3,0(a1)
+ 110:	0511                	addi	a0,a0,4
+ 112:	0591                	addi	a1,a1,4
+ 114:	fec59ae3          	bne	a1,a2,108 <handle_reset+0x52>
+ 118:	e000f7b7          	lui	a5,0xe000f
+ 11c:	4705                	li	a4,1
+ 11e:	c398                	sw	a4,0(a5)
+ 120:	1b000793          	li	a5,432
+ 124:	34179073          	csrw	mepc,a5
+ 128:	30200073          	mret
+
+0000012c <ADC1_IRQHandler>:
+ 12c:	a001                	j	12c <ADC1_IRQHandler>
+
+0000012e <NMI_Handler>:
+ 12e:	40021737          	lui	a4,0x40021
+ 132:	471c                	lw	a5,8(a4)
+ 134:	008006b7          	lui	a3,0x800
+ 138:	8fd5                	or	a5,a5,a3
+ 13a:	c71c                	sw	a5,8(a4)
+
+0000013c <memset>:
+ 13c:	962a                	add	a2,a2,a0
+ 13e:	87aa                	mv	a5,a0
+ 140:	00c79363          	bne	a5,a2,146 <memset+0xa>
+ 144:	8082                	ret
+ 146:	00b78023          	sb	a1,0(a5) # e000f000 <__global_pointer$+0xc000e800>
+ 14a:	0785                	addi	a5,a5,1
+ 14c:	bfd5                	j	140 <memset+0x4>
+
+0000014e <SystemInit>:
+ 14e:	400217b7          	lui	a5,0x40021
+ 152:	01080737          	lui	a4,0x1080
+ 156:	0007a223          	sw	zero,4(a5) # 40021004 <__global_pointer$+0x20020804>
+ 15a:	08170713          	addi	a4,a4,129 # 1080081 <primes.c.b1b60d06+0x107e42a>
+ 15e:	c398                	sw	a4,0(a5)
+ 160:	4685                	li	a3,1
+ 162:	40022737          	lui	a4,0x40022
+ 166:	c314                	sw	a3,0(a4)
+ 168:	009f0737          	lui	a4,0x9f0
+ 16c:	c798                	sw	a4,8(a5)
+ 16e:	40021737          	lui	a4,0x40021
+ 172:	431c                	lw	a5,0(a4)
+ 174:	00679693          	slli	a3,a5,0x6
+ 178:	fe06dde3          	bgez	a3,172 <SystemInit+0x24>
+ 17c:	435c                	lw	a5,4(a4)
+ 17e:	400216b7          	lui	a3,0x40021
+ 182:	9bf1                	andi	a5,a5,-4
+ 184:	0027e793          	ori	a5,a5,2
+ 188:	c35c                	sw	a5,4(a4)
+ 18a:	4721                	li	a4,8
+ 18c:	42dc                	lw	a5,4(a3)
+ 18e:	8bb1                	andi	a5,a5,12
+ 190:	fee79ee3          	bne	a5,a4,18c <SystemInit+0x3e>
+ 194:	e00007b7          	lui	a5,0xe0000
+ 198:	0f878793          	addi	a5,a5,248 # e00000f8 <__global_pointer$+0xbffff8f8>
+ 19c:	0007a023          	sw	zero,0(a5)
+ 1a0:	e00007b7          	lui	a5,0xe0000
+ 1a4:	0f478793          	addi	a5,a5,244 # e00000f4 <__global_pointer$+0xbffff8f4>
+ 1a8:	08000713          	li	a4,128
+ 1ac:	c398                	sw	a4,0(a5)
+ 1ae:	8082                	ret
+
+000001b0 <main>:
+		}
+	}
+}
+
+int main( void )
+{
+ 1b0:	fdc10113          	addi	sp,sp,-36
+ 1b4:	ce22                	sw	s0,28(sp)
+ 1b6:	d006                	sw	ra,32(sp)
+ 1b8:	cc26                	sw	s1,24(sp)
+	SystemInit(); // sets up systick at 6MHz (among other things)
+ 1ba:	3f51                	jal	14e <SystemInit>
+	volatile unsigned int Cnt = 0;
+ 1bc:	200007b7          	lui	a5,0x20000
+ 1c0:	00778793          	addi	a5,a5,7 # 20000007 <aIsPrime+0x3>
+ 1c4:	c83e                	sw	a5,16(sp)
+ 1c6:	200007b7          	lui	a5,0x20000
+ 1ca:	00678793          	addi	a5,a5,6 # 20000006 <aIsPrime+0x2>
+ 1ce:	c63e                	sw	a5,12(sp)
+ 1d0:	200007b7          	lui	a5,0x20000
+	while ( 1 )
+	{
+		Cnt = 0;
+		SysTick->CNT = 0;
+
+		while ( ( (int32_t)( SysTick->CNT - 6000000 ) ) < 0 ) // counting to 6000000 at 6MHz is 1 second
+ 1d4:	ffa47737          	lui	a4,0xffa47
+ 1d8:	00878793          	addi	a5,a5,8 # 20000008 <aIsPrime+0x4>
+	volatile unsigned int Cnt = 0;
+ 1dc:	ca02                	sw	zero,20(sp)
+ 1de:	c43e                	sw	a5,8(sp)
+		while ( ( (int32_t)( SysTick->CNT - 6000000 ) ) < 0 ) // counting to 6000000 at 6MHz is 1 second
+ 1e0:	28070793          	addi	a5,a4,640 # ffa47280 <__global_pointer$+0xdfa46a80>
+ 1e4:	c23e                	sw	a5,4(sp)
+		Cnt = 0;
+ 1e6:	ca02                	sw	zero,20(sp)
+		SysTick->CNT = 0;
+ 1e8:	e000f7b7          	lui	a5,0xe000f
+ 1ec:	0007a423          	sw	zero,8(a5) # e000f008 <__global_pointer$+0xc000e808>
+		while ( ( (int32_t)( SysTick->CNT - 6000000 ) ) < 0 ) // counting to 6000000 at 6MHz is 1 second
+ 1f0:	479c                	lw	a5,8(a5)
+ 1f2:	4712                	lw	a4,4(sp)
+ 1f4:	bec18413          	addi	s0,gp,-1044 # 200003ec <_ebss>
+ 1f8:	97ba                	add	a5,a5,a4
+ 1fa:	0007cd63          	bltz	a5,214 <main+0x64>
+		{
+			_CalcPrimes( sizeof( aIsPrime ) );
+			Cnt++;
+		}
+		BREAK(); // look at Cnt with your debugger
+ 1fe:	9002                	ebreak
+		Cnt = 0;
+ 200:	ca02                	sw	zero,20(sp)
+		SysTick->CNT = 0;
+ 202:	e000f7b7          	lui	a5,0xe000f
+ 206:	0007a423          	sw	zero,8(a5) # e000f008 <__global_pointer$+0xc000e808>
+		while ( ( (int32_t)( SysTick->CNT - 6000000 ) ) < 0 ) // counting to 6000000 at 6MHz is 1 second
+ 20a:	479c                	lw	a5,8(a5)
+ 20c:	4712                	lw	a4,4(sp)
+ 20e:	97ba                	add	a5,a5,a4
+ 210:	fe07d7e3          	bgez	a5,1fe <main+0x4e>
+	return wcrtomb(s, wc, 0);
+}
+#endif
+size_t strlen(const char *s) { const char *a = s;for (; *s; s++);return s-a; }
+size_t strnlen(const char *s, size_t n) { const char *p = memchr(s, 0, n); return p ? p-s : n;}
+void *memset(void *dest, int c, size_t n) { unsigned char *s = dest; for (; n; n--, s++) *s = c; return dest; }
+ 214:	200007b7          	lui	a5,0x20000
+ 218:	00478513          	addi	a0,a5,4 # 20000004 <aIsPrime>
+ 21c:	3e800613          	li	a2,1000
+ 220:	4585                	li	a1,1
+ 222:	3f29                	jal	13c <memset>
+ 224:	47a2                	lw	a5,8(sp)
+		aIsPrime[i] = 0; // Cross it out: not a prime
+ 226:	00078023          	sb	zero,0(a5)
+	for ( i = 4; i < NumItems; i += 2 )
+ 22a:	0789                	addi	a5,a5,2
+ 22c:	fef41de3          	bne	s0,a5,226 <main+0x76>
+ 230:	4642                	lw	a2,16(sp)
+	for ( i = 3; i * i < NumItems; i++ )
+ 232:	4525                	li	a0,9
+ 234:	448d                	li	s1,3
+			} while ( j < NumItems );
+ 236:	3e700693          	li	a3,999
+ 23a:	a821                	j	252 <main+0xa2>
+	for ( i = 3; i * i < NumItems; i++ )
+ 23c:	0485                	addi	s1,s1,1
+ 23e:	85a6                	mv	a1,s1
+ 240:	8526                	mv	a0,s1
+ 242:	c032                	sw	a2,0(sp)
+ 244:	3db1                	jal	a0 <__mulsi3>
+ 246:	4602                	lw	a2,0(sp)
+ 248:	3e700693          	li	a3,999
+ 24c:	0605                	addi	a2,a2,1
+ 24e:	02a6e363          	bltu	a3,a0,274 <main+0xc4>
+		if ( aIsPrime[i] )
+ 252:	00064783          	lbu	a5,0(a2)
+ 256:	d3fd                	beqz	a5,23c <main+0x8c>
+ 258:	200007b7          	lui	a5,0x20000
+ 25c:	00478793          	addi	a5,a5,4 # 20000004 <aIsPrime>
+ 260:	00149713          	slli	a4,s1,0x1
+ 264:	97aa                	add	a5,a5,a0
+				aIsPrime[j] = 0; // Cross it out: not a prime
+ 266:	00078023          	sb	zero,0(a5)
+				j += 2 * i; // Skip even multiples (only 3*, 5*, 7* etc)
+ 26a:	953a                	add	a0,a0,a4
+			} while ( j < NumItems );
+ 26c:	97ba                	add	a5,a5,a4
+ 26e:	fea6fce3          	bgeu	a3,a0,266 <main+0xb6>
+ 272:	b7e9                	j	23c <main+0x8c>
+ 274:	47b2                	lw	a5,12(sp)
+	NumPrimes = 0;
+ 276:	4681                	li	a3,0
+		if ( aIsPrime[i] )
+ 278:	0007c703          	lbu	a4,0(a5)
+	for ( i = 2; i < NumItems; i++ )
+ 27c:	0785                	addi	a5,a5,1
+		if ( aIsPrime[i] )
+ 27e:	c311                	beqz	a4,282 <main+0xd2>
+			NumPrimes++;
+ 280:	0685                	addi	a3,a3,1 # 40021001 <__global_pointer$+0x20020801>
+	for ( i = 2; i < NumItems; i++ )
+ 282:	fef41be3          	bne	s0,a5,278 <main+0xc8>
+			Cnt++;
+ 286:	47d2                	lw	a5,20(sp)
+		while ( ( (int32_t)( SysTick->CNT - 6000000 ) ) < 0 ) // counting to 6000000 at 6MHz is 1 second
+ 288:	4712                	lw	a4,4(sp)
+			Cnt++;
+ 28a:	0785                	addi	a5,a5,1
+ 28c:	ca3e                	sw	a5,20(sp)
+		while ( ( (int32_t)( SysTick->CNT - 6000000 ) ) < 0 ) // counting to 6000000 at 6MHz is 1 second
+ 28e:	e000f7b7          	lui	a5,0xe000f
+ 292:	479c                	lw	a5,8(a5)
+ 294:	97ba                	add	a5,a5,a4
+ 296:	f607cfe3          	bltz	a5,214 <main+0x64>
+ 29a:	200007b7          	lui	a5,0x20000
+ 29e:	00d7a023          	sw	a3,0(a5) # 20000000 <NumPrimes>
+		BREAK(); // look at Cnt with your debugger
+ 2a2:	9002                	ebreak
+	while ( 1 )
+ 2a4:	bfb1                	j	200 <main+0x50>
+	...

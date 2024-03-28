@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/ch32v003fun"
+            ],
+            "defines": [
+                "CH32V003",
+                "asm" // get rid of intellisense complaining about 'undeclared identifier asm'
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [
+                "-DCH32V003FUN_BASE"
+            ],
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}
