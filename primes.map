@@ -4,9 +4,9 @@ primes.elf:     file format elf32-littleriscv
 SYMBOL TABLE:
 00000000 l    d  .init	00000000 .init
 000000a0 l    d  .text	00000000 .text
-000002a8 l    d  .fini	00000000 .fini
+000002b0 l    d  .fini	00000000 .fini
 20000000 l    d  .dalign	00000000 .dalign
-000002a8 l    d  .dlalign	00000000 .dlalign
+000002b0 l    d  .dlalign	00000000 .dlalign
 20000000 l    d  .data	00000000 .data
 20000000 l    d  .bss	00000000 .bss
 00000000 l    d  .debug_info	00000000 .debug_info
@@ -25,7 +25,6 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 muldi3.o
 20000800 g       .data	00000000 __global_pointer$
 0000012c g     F .text	00000002 TIM1_CC_IRQHandler
-00001c57  w      .debug_info	00000000 .hidden primes.c.b1b60d06
 0000012c g     F .text	00000002 HardFault_Handler
 0000012c g     F .text	00000002 SysTick_Handler
 0000012c g     F .text	00000002 PVD_IRQHandler
@@ -52,7 +51,7 @@ SYMBOL TABLE:
 20000000 g       .dalign	00000000 _data_vma
 0000012e g     F .text	0000000e NMI_RCC_CSS_IRQHandler
 0000013c g     F .text	00000012 memset
-000001b0 g     F .text	000000f6 main
+000001b0 g     F .text	000000fe main
 0000012c g     F .text	00000002 DMA1_Channel5_IRQHandler
 0000014e g     F .text	00000062 SystemInit
 00000000 g       .init	00000000 _sinit
@@ -64,11 +63,12 @@ SYMBOL TABLE:
 0000012c g     F .text	00000002 SW_Handler
 0000012c g     F .text	00000002 TIM1_BRK_IRQHandler
 20000000 g       .data	00000000 _edata
-000002a8 g       .dlalign	00000000 _data_lma
+000002b0 g       .dlalign	00000000 _data_lma
 0000012c g     F .text	00000002 DMA1_Channel2_IRQHandler
 000000b6 g     F .text	00000076 handle_reset
 0000012c g     F .text	00000002 FLASH_IRQHandler
 0000012c g     F .text	00000002 USART1_IRQHandler
 0000012c g     F .text	00000002 I2C1_ER_IRQHandler
+00001c57  w      .debug_info	00000000 .hidden primes.c.72164fed
 
 

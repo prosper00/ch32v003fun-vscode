@@ -34,6 +34,37 @@
 		},
 		{
 			"type": "shell",
+			"label": "flash",
+			"presentation": {
+				"echo": true,
+				"focus": false,
+				"group": "build",
+				"panel": "shared",
+				"showReuseMessage": false
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"command": "make closechlink; make; make flash",
+			"problemMatcher": { // https://code.visualstudio.com/docs/editor/tasks#_defining-a-problem-matcher
+				"owner": "cpp",
+				"fileLocation": [
+					"relative",
+					"${workspaceFolder}"
+				],
+				"pattern": {
+					"regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"message": 5
+				},
+			},
+		},
+		{
+			"type": "shell",
 			"label": "run_flash_and_gdbserver",
 			"command": "make closechlink flash gdbserver",
 			"presentation": {

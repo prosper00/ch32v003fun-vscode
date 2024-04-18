@@ -62,14 +62,15 @@ static void _CalcPrimes( unsigned int NumItems )
 int main( void )
 {
 	SystemInit(); // sets up systick at 6MHz (among other things)
+	FLASH->ACTLR = FLASH_ACTLR_LATENCY_0; // may get crashy? Seems to work though
 	volatile unsigned int Cnt = 0;
 
 	while ( 1 )
 	{
 		Cnt = 0;
 		SysTick->CNT = 0;
-
-		while ( ( (int32_t)( SysTick->CNT - 6000000 ) ) < 0 ) // counting to 6000000 at 6MHz is 1 second
+		while ( ( (int32_t)( SysTick->CNT - ( FUNCONF_SYSTEM_CORE_CLOCK / 8 ) ) ) <
+				0 ) // counting to 6000000 at 6MHz is 1 second
 		{
 			_CalcPrimes( sizeof( aIsPrime ) );
 			Cnt++;

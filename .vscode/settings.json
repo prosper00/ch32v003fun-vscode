@@ -11,5 +11,5 @@
     "editor.tabSize": 4,
     "files.associations": {
         "ch32v003fun.h": "c"
-    }
+    },
 }
